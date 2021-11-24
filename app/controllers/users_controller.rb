@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:edit, :update, :following, :followers]
   before_action :correct_user,   only: [:edit, :update]
 
   def show
@@ -32,6 +32,13 @@ class UsersController < ApplicationController
     else
       render "edit"
     end
+  end
+
+  def following
+    @title = "フォローちゅ"
+    @user = User.find(params[:id])
+    @users = @user.following_user.paginate(page: params[:page])
+    render "show_follow"
   end
 
   private
