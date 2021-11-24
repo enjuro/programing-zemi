@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_many :tweets, dependent: :destroy
     
     before_save { email.downcase! }
     
